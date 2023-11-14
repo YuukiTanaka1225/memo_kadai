@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家計簿アプリ</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          width: 300px;
+          margin: auto;
+        }
+        .container {
+          width: 300px;
+          margin: auto;
+        }
+        input, button {
+          margin: 5px 0;
+        }
+      </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+  <h1>家計簿アプリ</h1>
+    <main style="display:none;">
+        <!-- <div class="input-area">
+            <input id="title" type="text" placeholder="タイトルを入力"><br>
+            <textarea id="text" placeholder="本文を入力"></textarea>
+
+        </div>
+
+        <div class="button-area">
+            <button id="save">保存する</button>
+            <button id="clear">全削除</button>
+
+        </div>
+        <ul id="list">
+
+        </ul> -->
+        <div class="container">
+
+            <select id="category" ></select>
+            <br>
+            <input id="money" type="number"  placeholder="金額">
+            <br>
+            <textarea id="text_area" cols="20" rows="3" placeholder="メモがあれば記載"></textarea>
+            <br>
+            <button id="add">追加する</button><button id="delete">削除する</button>
+          </div>
+          <br><br><br>
+          <div id="view"></div>
+
+    </main>
+
+    <script>
+
+        // alert(111)
+
+    // const menu =["サーモン","いくら","ウニ","ホタテ","ネギトロ","マグロ","ヤリイカ","タコ",]
+    //     console.log(menu[3])
+
+    //     for (let i = 0; i < 10; i++ ){
+
+    //         console.log(i)
+    //     }
+    //     for (let i =0; i<menu.length; i++){
+    //         console.log(menu[i])
+    //     }
+    // const a =["a","b"]
+    // console.log(a)
+
+        // $("#save").on("click", function() {
+        //     const key = $("title").val;
+        //     const value = $("text").val;
+        //     localStorage.setItem(key, value);
+        //     const html=`
+        //     <li>
+        //         <p>${key}</p>
+        //         <p>${value}</p>
+        //     </li>
+        //     `;
+        //     $("list").append(html);
+        // });
+
+        // $("#clear").on("click", function(){
+        //     localStorage.clear();
+        //     $("#list").empty();
+        // });
+
+        // for (let i =0; i< localStorage.length; i++ ){
+        //     const key = localStorage.key(i)
+        //     const value = localStorage.getItem(key)
+        //     const html =`
+        //     <li>
+        //         <p>${key}</p>
+        //         <p>${value}</p>
+        //     </li>
+        //     `;
+        //     $("list").append(html);
+
+        // }
+    $("main").slideDown(500);
+    
+    
+    const ar =["食費","住宅費","水道光熱費","通信料","保険料","車両費","保育料、学費","税金","交通費","教育費","貯蓄","その他"]
+    let str =""
+    console.log(ar[0])
+
+    //カテゴリのオプションを作りたい。配列から取ってくる
+    for(let i=0; i <ar.length; i++){
+        str +=`<option>${ar[i]}</option>`;
+    }
+
+    $("#category").html(str);
+
+    //Localstrageに保存する
+    //カテゴリと料金の部分
+    $("#add").on("click", function(){
+      const key =$("#category").val();
+      const value =$("#money").val();
+      localStorage.setItem(key, value)
+    })
+    //メモの部分
+    $("#add").on("click",function(){
+      // alert("add")
+      const text=$("#text_area").val()
+      localStorage.setItem("memo",text);
+      alert("保存しました")
+      $("text_area").val("");
+    })
+
+    //localstrageに保存したデータを表示させる
+    function displayData() {
+    $("#view").empty();
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+            const displayStr = `<div>${category}<br>${amount}<br>${memo}<br></div>`;
+            $("#view").append(displayStr);
+        }
+    }
+
+
+    // const view1 =localStorage.getItem("key")
+    // const view2 =localStorage.getItem("value")
+    // const view3 =localStorage.getItem("text")
+
+    // str1 +=`${view1}<br>${view2}<br>${view3}<br>`;
+
+    // $("#view").html(str1);
+
+    $("#delete").on("click",function(){
+      localStorage.removeItem(key)
+      alert("削除しました")
+      $("text_area").val("");
+    })
+
+  
+
+
+    </script>
+
+
+</body>
+</html>
